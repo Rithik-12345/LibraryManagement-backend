@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.web.csrf.CsrfToken;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -67,6 +68,11 @@ public class Bookcontroller {
         book.setId(id);
         Book book3 = service.removebook(book);
         return new ResponseEntity<>(book3, HttpStatus.OK);
+    }
+
+    @GetMapping("/csrf-token")
+    public CsrfToken getcsrftoken(HttpServletRequest request) {
+        return (CsrfToken) request.getAttribute("_csrf");
     }
 
 
